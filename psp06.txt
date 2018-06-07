@@ -1,0 +1,33 @@
+C:\Users\CARLOS-HC\Desktop\Carpeta_Tarea\PSP06\dist\PSP06.jar
+*************************************************************
+java –Djava.security.manager C:\Users\CARLOS-HC\Desktop\Carpeta_Tarea\PSP06\dist\PSP06.jar
+
+java –Djava.security.manager PSP06
+
+javac C:\Users\CARLOS-HC\Documents\NetBeansProjects\GetProps\src\getprops\GetProps.java
+
+
+java –Djava.security.manager GetProps
+
+
+
+
+Hola Cesar, abro este hilo por que estoy teniendo problemas al ejecutar el comando :
+java –Djava.security.manager GetProps 
+ya que a mi no me  ejecuta y me indica el siguiente error:
+
+"Error: no se ha encontrado o cargado la clase principal GetProps"
+
+No se porque puede ser ya que trabajo sobre el directorio donde se encuentran los ficheros ".class".
+
+He estado buscando información acerca de este error, pero nos consigo dar con la solución.
+
+Actualmente estoy bloqueado en este punto en la realización de esta tarea, te agradecería si me puedes dar alguna indicación de porque me puede estar pasando esto o si hay algún compañero que le haya pasado también.
+
+Gracias.
+
+
+
+java.util.PropertyPermission
+
+
