@@ -51,11 +51,13 @@ public class Cliente {
                 int longitud = loQueEntra.readInt();//R1               
                 byte[] bytesArchivo = new byte[longitud];
 
-                loQueEntra.readFully(bytesArchivo, 0, longitud);//R2
+                loQueEntra.readFully(bytesArchivo, 0, longitud);//R2                
 
                 FileOutputStream fos = new FileOutputStream("psp06_copia.txt");
                 
                 fos.write(bytesArchivo);
+                
+                fos.close();
                 
                
             } else {

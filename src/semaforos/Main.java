@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         
 
-        //porque el cocinero saca comida para 3 comensales
+        //porque el cocinero saca comida para 1 comensal
         Semaphore semaforo = new Semaphore(1);
         //platos que hay actualmente
         List platos = new ArrayList();

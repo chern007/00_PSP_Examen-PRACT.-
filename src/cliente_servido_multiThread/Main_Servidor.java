@@ -5,7 +5,6 @@
  */
 package cliente_servido_multiThread;
 
-
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -23,28 +22,28 @@ import java.util.logging.Logger;
  * @author CARLOS-HC
  */
 public class Main_Servidor {
-    
+
     public static boolean finalizar = false;
 
     public static void main(String[] args) {
 
-        ServerSocket ss;
-        Socket sc;        
+        try {
 
-        while (!finalizar) {
+            ServerSocket ss = new ServerSocket(6060);
 
-            try {
+            Socket sc;
 
-                ss = new ServerSocket(6060);
+            while (!finalizar) {
+
                 sc = ss.accept();
 
                 new Thread(new Servidor(sc)).start();
 
                 System.out.println("Nuevo hilo de servidor generado.");
 
-            } catch (IOException ex) {
-                Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (IOException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -77,31 +76,24 @@ class Servidor implements Runnable {
 
                 loQueSale.writeUTF("Palabra secreta correcta.");//W1
 
-            }else if (respuesta.equals("fichero")){
-                
-                Path ruta = Paths.get("psp06.txt");
+            } else if (respuesta.equals("fichero")) {
+
+                Path ruta = Paths.get("C:\\Users\\chern007\\Desktop\\tarea06.txt");
+                //Path ruta = Paths.get("psp06.txt");
                 byte[] ficheroBytes = Files.readAllBytes(ruta);
-                
-                loQueSale.write(ficheroBytes.length);//W1                
+
+                loQueSale.writeInt(ficheroBytes.length);//W1                
                 loQueSale.write(ficheroBytes);//W2              
-            } 
-            
-            
-            
-            else if (respuesta.equals("chao")){
-                
+            } else if (respuesta.equals("chao")) {
+
                 loQueSale.writeUTF("El servidor se cerrará");//W1
                 Main_Servidor.finalizar = true;
-                
-            }            
-            
-            else {
+
+            } else {
 
                 loQueSale.writeUTF("Palabra secreta incorrecta.");//W1
 
             }
-            
-            
 
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
