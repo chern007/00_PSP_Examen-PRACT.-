@@ -9,6 +9,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -55,9 +58,9 @@ public class Main_cifrado {
             
             
             //apuntamos al fichero para hacer un Stream de los bytes
-            FileInputStream fis =  new FileInputStream("C:\\Users\\chern007\\Desktop\\tarea06.txt");
+            FileInputStream fis =  new FileInputStream("C:\\Users\\CARLOS-HC\\Desktop\\tarea06.txt");
             //apuntamos al fichero cifrado que vamos a crear
-            FileOutputStream fos = new FileOutputStream("C:\\Users\\chern007\\Desktop\\tarea06.cif");
+            FileOutputStream fos = new FileOutputStream("C:\\Users\\CARLOS-HC\\Desktop\\tarea06.cif");
             //creamos el buffer de almacenamiento
             byte[] buffer = new byte[1024];
             byte[] buferCifrado;
@@ -93,30 +96,46 @@ public class Main_cifrado {
             //ponemos el cifrador en modo descifrar
             cifrador.init(Cipher.DECRYPT_MODE, key);
             
-            //para leer y construir el nuevo fichero descifrado utilizaremos el fis y el fos que hemos declarado anteriormente:            
-            fis = new FileInputStream("C:\\Users\\chern007\\Desktop\\tarea06.cif");
-            fos = new FileOutputStream("C:\\Users\\chern007\\Desktop\\tarea06(descifrado).txt");
+//            //para leer y construir el nuevo fichero descifrado utilizaremos el fis y el fos que hemos declarado anteriormente:            
+//            fis = new FileInputStream("C:\\Users\\chern007\\Desktop\\tarea06.cif");
+//            fos = new FileOutputStream("C:\\Users\\chern007\\Desktop\\tarea06(descifrado).txt");
+//            
+//            byte[] bufferCifrado2 = new byte[1024];
+//            byte[] bufferDescifrado2;
+//            
+//            int lectura2 = 0;
+//            
+//            while ((lectura2= fis.read(bufferCifrado2, 0, bufferCifrado2.length))!=-1) {                
+//                
+//                bufferDescifrado2 = cifrador.update(bufferCifrado2, 0, lectura2);
+//                
+//                fos.write(bufferDescifrado2);                
+//            }
+//            
+//            
+//            //ciframos el final y cerramos el fichero
+//            bufferDescifrado2 = cifrador.doFinal();
+//            fos.write(bufferDescifrado2);
+//            
+//            //cerramos el fis y el fos
+//            fis.close();
+//            fos.close();
             
-            byte[] bufferCifrado2 = new byte[1024];
-            byte[] bufferDescifrado2;
+            // ****** METODO JAVA 8 MAS RAPIDO *******
             
-            int lectura2 = 0;
+            Path ruta = Paths.get("C:\\Users\\CARLOS-HC\\Desktop\\tarea06.cif");
+            byte[] bytesFicheroCifrado = Files.readAllBytes(ruta);
+            byte[] bytesFicheroDescifrado;
             
-            while ((lectura2= fis.read(bufferCifrado2, 0, bufferCifrado2.length))!=-1) {                
-                
-                bufferDescifrado2 = cifrador.update(bufferCifrado2, 0, lectura2);
-                
-                fos.write(bufferDescifrado2);                
-            }
+            bytesFicheroDescifrado = cifrador.doFinal(bytesFicheroCifrado);
+            
+            FileOutputStream fos_aux = new FileOutputStream("C:\\Users\\CARLOS-HC\\Desktop\\tuuusaaa.txt");
+            
+            fos_aux.write(bytesFicheroDescifrado);
+            
+            fos_aux.close();
             
             
-            //ciframos el final y cerramos el fichero
-            bufferDescifrado2 = cifrador.doFinal();
-            fos.write(bufferDescifrado2);
-            
-            //cerramos el fis y el fos
-            fis.close();
-            fos.close();
             
             System.out.println("Se ha generado el fichero descifrado.");
             
