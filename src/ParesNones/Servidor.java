@@ -40,19 +40,25 @@ public class Servidor implements Runnable{
             //esperamos el nombre del usuario
             String nombreUsuario = entra.readUTF();//R1
             
+            //creamos un marcador
+            Marcador miMarcador = new Marcador(nombreUsuario);
+            
             //le enviamos el saludo
-            sale.writeUTF("Hola "+nombreUsuario + " vamos a jugar a PARES Y NONES.");//W1
+            sale.writeUTF("Hola "+nombreUsuario + " vamos a jugar a PARES Y NONES.");//W0
             
             //comenzamos el juego
             boolean finJuego = false;
-            while (!finJuego) {                
+            while (!finJuego) {                 
+                
+            //le mandamos el marcador actual
+            sale.writeUTF(miMarcador.sacaResultado());//W1
             
             //le decimos si quiere pares o nones
             sale.writeUTF("Elige: ¿PARES o NONES?");//W2
                 
             String paresOnones = entra.readUTF();//R2
                 
-            int numeroCliente = entra.readInt();//R2  
+            int numeroCliente = entra.readInt();//R3  
                 
             int numeroServidor =  sacaParesOnones(); 
               
@@ -71,21 +77,16 @@ public class Servidor implements Runnable{
                 }
                 
             //quieres seguir jugando?    
-               sale.writeUTF("Quieres seguir jugando???");//W3 
-               String seguimosJugando = entra.readUTF();
+               sale.writeUTF("Quieres seguir jugando???");//W4 
+               String seguimosJugando = entra.readUTF();//R3
                
                 if (seguimosJugando.equals("NO")) {
                     
                   finJuego= true; 
                   
-                }
-               
-               
+                }  
                
             }
-            
-            
-            
             
             
         } catch (IOException ex) {
