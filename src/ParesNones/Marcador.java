@@ -38,7 +38,7 @@ public class Marcador {
     
     public String sacaResultado(){
         
-        return nombreCliente + ": " + puntosCliente + " - Maquina: " + puntosCliente;
+        return nombreCliente + ": " + puntosCliente + " - Maquina: " + puntosMaquina;
         
     }
     

@@ -69,11 +69,12 @@ public class Servidor implements Runnable{
                 if ((paresOnones.equals("PARES") && sumaNumeros%2 == 0) || (paresOnones.equals("NONES") && sumaNumeros%2 != 0)) {
                     
                     sale.writeUTF("Has GANADO! La suma de las dos apuestas es de " + sumaNumeros);//W3
+                    miMarcador.sumarCliente();
                     
                 }else{
                     
                      sale.writeUTF("Has PERDIDO! La suma de las dos apuestas es de " + sumaNumeros);//W3
-                    
+                     miMarcador.sumarMaquina();
                 }
                 
             //quieres seguir jugando?    
@@ -87,7 +88,10 @@ public class Servidor implements Runnable{
                 }  
                
             }
-            
+                        
+            entra.close();
+            sale.close();
+            sc.close(); 
             
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
